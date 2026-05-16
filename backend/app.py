@@ -8,10 +8,8 @@ from datetime import datetime
 import os                
 
 app = Flask(__name__)
-init_db()    
 
 CORS(app)
-
 
 # Configure CORS properly
 CORS(app, resources={
