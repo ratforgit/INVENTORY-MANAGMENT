@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE_URL from '../config';
 import './Dashboard.css';
 
 /* ────────────────────────────────────
@@ -194,15 +195,9 @@ const Dashboard = ({ user, onNavigate, onLogout }) => {
       
       // Fetch all data
       const [statsRes, txRes, prodRes] = await Promise.all([
-        fetch('http://localhost:5000/api/stats', {
-          headers: { 'Authorization': cleanToken }
-        }),
-        fetch('http://localhost:5000/api/transactions', {
-          headers: { 'Authorization': cleanToken }
-        }),
-        fetch('http://localhost:5000/api/products', {
-          headers: { 'Authorization': cleanToken }
-        }),
+        fetch(`${API_BASE_URL}/api/stats`, { headers: { 'Authorization': cleanToken } }),
+        fetch(`${API_BASE_URL}/api/transactions`, { headers: { 'Authorization': cleanToken } }),
+        fetch(`${API_BASE_URL}/api/products`, { headers: { 'Authorization': cleanToken } }),
       ]);
 
       if (!statsRes.ok) {
