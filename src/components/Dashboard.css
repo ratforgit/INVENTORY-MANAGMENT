@@ -1,0 +1,179 @@
+@import './global.css';
+
+/* ── Mobile sidebar toggle ── */
+.mobile-menu-btn {
+  display: none;
+}
+
+/* ── Sidebar overlay (mobile) ── */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 49;
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.15s ease both;
+}
+
+/* ── Stats grid ── */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+}
+
+.stat-card {
+  animation: fadeUp 0.4s var(--ease-slow) both;
+}
+
+.stat-icon {
+  background: color-mix(in srgb, var(--icon-color, var(--accent)) 15%, transparent);
+  color: var(--icon-color, var(--accent));
+}
+
+.stat-value {
+  font-family: var(--font-sans);
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.stat-meta {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  margin-top: auto;
+}
+
+/* ── Dashboard lower grid ── */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: var(--space-4);
+  animation: fadeUp 0.5s var(--ease-slow) 0.1s both;
+}
+
+/* Section title inside toolbar */
+.section-title {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+/* ── Skeleton loader ── */
+.stat-skeleton {
+  pointer-events: none;
+  animation: fadeUp 0.3s ease both, pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+
+.skeleton-line {
+  height: 12px;
+  border-radius: var(--radius-sm);
+  background: rgba(255,255,255,0.06);
+}
+
+.skeleton-short {
+  width: 45%;
+}
+
+.skeleton-value {
+  width: 60%;
+  height: 28px;
+  margin: var(--space-3) 0;
+  border-radius: var(--radius-sm);
+}
+
+/* ── td helpers ── */
+.td-product {
+  font-weight: 500;
+  color: var(--text-primary);
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1200px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .mobile-menu-btn {
+    display: flex;
+    margin-right: var(--space-2);
+  }
+
+  .sidebar-overlay {
+    display: block;
+  }
+
+  .sidebar.open {
+    transform: translateX(0) !important;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .stat-value {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Make button and logo/date side by side */
+.page-header-left {
+  display: flex;
+  flex-direction: row !important;  /* Override column layout */
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Keep the text content in a column */
+.header-text {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Adjust mobile menu button */
+.mobile-menu-btn {
+  display: flex;
+  margin-right: 0;
+}
+
+/* Mobile menu button - visible only on mobile */
+.mobile-menu-btn {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-menu-btn {
+    display: inline-flex;
+  }
+  
+  .page-header-left {
+    gap: 0.75rem;
+  }
+}
