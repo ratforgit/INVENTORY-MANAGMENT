@@ -19,7 +19,7 @@ const Login = ({ onLogin }) => {
   try {
     console.log('🔐 Attempting login with:', credentials.username);
     
-    const response = await fetch('${API_BASE_URL}/api/login', {
+    const response = await fetch('https://inventory-managment-f86s.onrender.com/api/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ 
