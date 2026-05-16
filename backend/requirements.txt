@@ -1,4 +1,5 @@
 Flask==2.3.0
 flask-cors==4.0.0
-flask-sqlalchemy==3.0.5gunicorn==23.0.0
+flask-sqlalchemy==3.0.5
+gunicorn==23.0.0
 packaging==26.2
