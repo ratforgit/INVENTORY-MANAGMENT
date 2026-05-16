@@ -93,7 +93,7 @@ const Icon = ({ name, size = 16 }) => {
 /* ────────────────────────────────────
    Sidebar component (shared across pages)
 ──────────────────────────────────── */
-const SidebarComponent = ({ activePage, user, onNavigate, onLogout }) => {
+export const Sidebar = ({ activePage, user, onNavigate, onLogout }) => {
   const navItems = [
     { id: 'dashboard', label: 'Overview', icon: 'grid' },
     { id: 'products', label: 'Products', icon: 'package' },
@@ -493,4 +493,5 @@ const Dashboard = ({ user, onNavigate, onLogout }) => {
   );
 };
 
+export { Sidebar } from './dashboard';
 export default Dashboard;
