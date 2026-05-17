@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://inventory-managment-f86s.onrender.com';
+const API_URL = 'https://inventory-managment-f86s.onrender.com/api';
 
 const authApi = axios.create({
   baseURL: API_URL,

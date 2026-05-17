@@ -14,7 +14,7 @@ CORS(app)
 # Configure CORS properly
 CORS(app, resources={
     r"/api/*": {
-        "origins": ["https://inventory-managment-f86s.onrender.com"],
+        "origins": ["http://localhost:5173", "http://127.0.0.1:5173","https://inventory-managment-f86s.onrender.com"],
         "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
         "allow_headers": ["Content-Type", "Authorization"],
         "expose_headers": ["Content-Type", "Authorization"],
@@ -217,7 +217,10 @@ def create_product():
 @token_required
 def update_product(id):
     try:
-        product = Product.query.get_or_404(id)
+        # product = Product.query.get_or_404(id)
+        product = db.session.get(Product, id)
+        if not product:
+            return jsonify({'message': 'Product not found'}), 404
         data = request.json
         product.name = data.get('name', product.name)
         product.sku = data.get('sku', product.sku)
@@ -336,6 +339,14 @@ def add_sample_products():
     except Exception as e:
         print(f"Sample products error: {str(e)}")
         return jsonify({'message': f'Error: {str(e)}'}), 500
+
+@app.route('/api/verify', methods=['GET'])
+@token_required
+def verify_token():
+    auth_header = request.headers.get('Authorization', '')
+    token = auth_header.replace('Bearer ', '')
+    user_id = tokens.get(token)
+    return jsonify({'valid': True, 'user_id': user_id}), 200
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))

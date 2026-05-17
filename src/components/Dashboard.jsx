@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import API_BASE_URL from '../config';
 import './Dashboard.css';
 
@@ -178,9 +178,9 @@ const Dashboard = ({ user, onNavigate, onLogout }) => {
   const [error, setError] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const token = localStorage.getItem('token');
+  // const token = localStorage.getItem('token');
   
-  const fetchDashboard = async () => {
+  const fetchDashboard = useCallback(async () => {
     setLoading(true);
     setError('');
     try {
@@ -195,9 +195,9 @@ const Dashboard = ({ user, onNavigate, onLogout }) => {
       
       // Fetch all data
       const [statsRes, txRes, prodRes] = await Promise.all([
-        fetch(`${API_BASE_URL}/api/stats`, { headers: { 'Authorization': cleanToken } }),
-        fetch(`${API_BASE_URL}/api/transactions`, { headers: { 'Authorization': cleanToken } }),
-        fetch(`${API_BASE_URL}/api/products`, { headers: { 'Authorization': cleanToken } }),
+        fetch(`${API_BASE_URL}/stats`, { headers: { 'Authorization': `Bearer ${cleanToken}` } }),
+        fetch(`${API_BASE_URL}/transactions`, { headers: { 'Authorization': `Bearer ${cleanToken}` } }),
+        fetch(`${API_BASE_URL}/products`, { headers: { 'Authorization': `Bearer ${cleanToken}` } }),
       ]);
 
       if (!statsRes.ok) {
@@ -228,9 +228,10 @@ const Dashboard = ({ user, onNavigate, onLogout }) => {
     } finally {
       setLoading(false);
     }
-  };
+  },[]);
 
-  useEffect(() => { fetchDashboard(); }, []);
+  // useEffect(() => { fetchDashboard(); }, []);
+  useEffect(() => { fetchDashboard(); }, [fetchDashboard]);
 
   const formatCurrency = (n) =>
     new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n || 0);
@@ -296,7 +297,7 @@ const Dashboard = ({ user, onNavigate, onLogout }) => {
 
       {/* Sidebar */}
       <div className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
-        <SidebarComponent
+        <Sidebar
           activePage="dashboard"
           user={user}
           onNavigate={handleSidebarNavigate}
@@ -493,5 +494,5 @@ const Dashboard = ({ user, onNavigate, onLogout }) => {
   );
 };
 
-export { Sidebar } from './dashboard';
+// export { Sidebar } from './dashboard';
 export default Dashboard;
