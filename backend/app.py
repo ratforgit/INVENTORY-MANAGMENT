@@ -244,19 +244,12 @@ def update_product(id):
 def delete_product(id):
     try:
         product = Product.query.get_or_404(id)
-        
-        # NEW LINE: Delete all transactions linked to this product first!
-        # (If your transaction model is named differently, use that name here)
-        Transaction.query.filter_by(product_id=id).delete()
-        
-        # Now it is safe to delete the product
         db.session.delete(product)
         db.session.commit()
-        
-        return jsonify({'message': 'Product and associated transactions deleted'})
+        return jsonify({'message': 'Product deleted'})
     except Exception as e:
         print(f"Delete product error: {str(e)}")
-        return jsonify({'message': f'Failed to delete product: {str(e)}'}), 500
+        return jsonify({'message': 'Failed to delete product'}), 500
 
 # ==================== TRANSACTION ROUTES ====================
 @app.route('/api/transactions', methods=['POST'])
