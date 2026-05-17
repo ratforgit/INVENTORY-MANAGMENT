@@ -195,9 +195,9 @@ const Dashboard = ({ user, onNavigate, onLogout }) => {
       
       // Fetch all data
       const [statsRes, txRes, prodRes] = await Promise.all([
-        fetch(`${API_BASE_URL}/stats`, { headers: { 'Authorization': `Bearer ${cleanToken}` } }),
-        fetch(`${API_BASE_URL}/transactions`, { headers: { 'Authorization': `Bearer ${cleanToken}` } }),
-        fetch(`${API_BASE_URL}/products`, { headers: { 'Authorization': `Bearer ${cleanToken}` } }),
+        fetch(`${API_BASE_URL}/api/stats`, { headers: { 'Authorization': cleanToken } }),
+        fetch(`${API_BASE_URL}/api/transactions`, { headers: { 'Authorization': cleanToken } }),
+        fetch(`${API_BASE_URL}/api/products`, { headers: { 'Authorization': cleanToken } }),
       ]);
 
       if (!statsRes.ok) {
