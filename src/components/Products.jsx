@@ -252,7 +252,7 @@ const Products = ({ user, onNavigate, onLogout }) => {
     setLoading(true);
     setError('');
     try {
-      const res = await fetch('http://localhost:5000/api/products', { headers });
+      const res = await fetch(`${API_BASE_URL}/api/products`, { headers });
       if (!res.ok) throw new Error('Failed to load products');
       const data = await res.json();
       const list = Array.isArray(data) ? data : data.products || [];
@@ -297,7 +297,7 @@ const Products = ({ user, onNavigate, onLogout }) => {
   const handleDelete = async () => {
     setDeleteLoading(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/products/${selected.id}`, { method: 'DELETE', headers });
+      const res = await fetch(`${API_BASE_URL}/api/products/${selected.id}`, { method: 'DELETE', headers });
       if (!res.ok) throw new Error('Delete failed');
       await fetchProducts();
       setModal(null);

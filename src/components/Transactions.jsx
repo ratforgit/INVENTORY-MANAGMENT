@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Sidebar } from './Dashboard';
 import './Transactions.css';
+import API_BASE_URL from "../config";
 
 /* ── Inline Icons ── */
 const Icon = ({ name, size = 16 }) => {
@@ -49,7 +50,7 @@ const AddTransactionModal = ({ products, onClose, onSave }) => {
     };
 
     try {
-      const res = await fetch('http://localhost:5000/api/transactions', {
+      const res = await fetch(`${API_BASE_URL}/api/transactions`, {
     method: 'POST',
     headers,
     body: JSON.stringify(payload),
@@ -197,8 +198,8 @@ const Transactions = ({ user, onNavigate, onLogout }) => {
     setError('');
     try {
       const [txRes, prodRes] = await Promise.all([
-    fetch('http://localhost:5000/api/transactions', { headers }),
-    fetch('http://localhost:5000/api/products', { headers }),
+    fetch(`${API_BASE_URL}/api/transactions`, { headers }),
+    fetch(`${API_BASE_URL}/api/products`, { headers }),
 ]);
       if (!txRes.ok) throw new Error('Failed to load transactions');
 
