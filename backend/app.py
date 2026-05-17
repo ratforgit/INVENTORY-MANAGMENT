@@ -8,6 +8,9 @@ from datetime import datetime
 import os                
 
 app = Flask(__name__)
+@app.route('/')
+def home():
+    return "My Flask API is running successfully!"
 
 CORS(app)
 
