@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Sidebar } from './Dashboard';
 import './Products.css';
+import API_BASE_URL from "../config";
 
 /* ── Inline Icons ── */
 const Icon = ({ name, size = 16 }) => {
@@ -53,7 +54,7 @@ const ProductModal = ({ product, onClose, onSave }) => {
     };
 
     try {
-      const url = isEdit ? `http://localhost:5000/api/products/${product.id}` : 'http://localhost:5000/api/products';
+      const url = isEdit ? `${API_BASE_URL}/api/products/${product.id}` : `${API_BASE_URL}/api/products`;
       const method = isEdit ? 'PUT' : 'POST';
       const res = await fetch(url, { method, headers, body: JSON.stringify(payload) });
       const data = await res.json();
